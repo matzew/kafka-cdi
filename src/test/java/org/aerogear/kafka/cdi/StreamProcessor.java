@@ -24,6 +24,10 @@ public class StreamProcessor {
 
     Logger logger = LoggerFactory.getLogger(StreamProcessor.class);
 
+    public StreamProcessor() {
+        System.out.println("");
+    }
+
     @KafkaStream(input = "input_topic2", output = "output_topic")
     public KStream<String, Long> tableTransformer(final KStream<String, String> source) {
 

@@ -202,7 +202,7 @@ public class KafkaExtension<X> implements Extension {
 
             @Override
             public void preDestroy(X instance) {
-                it.dispose(instance);
+                it.preDestroy(instance);
             }
 
             @Override

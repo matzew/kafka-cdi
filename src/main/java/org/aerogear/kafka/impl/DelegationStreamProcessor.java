@@ -32,6 +32,7 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
@@ -65,9 +66,9 @@ public class DelegationStreamProcessor {
         final Set<Bean<?>> beans = beanManager.getBeans(annotatedProcessorMethod.getJavaMember().getDeclaringClass());
         final Bean<?> propertyResolverBean = beanManager.resolve(beans);
         final CreationalContext<?> creationalContext = beanManager.createCreationalContext(propertyResolverBean);
+        final Type processorType = annotatedProcessorMethod.getJavaMember().getDeclaringClass();
 
-        final Object processorInstance = beanManager.getReference(propertyResolverBean,
-                annotatedProcessorMethod.getJavaMember().getDeclaringClass(), creationalContext);
+        final Object processorInstance = beanManager.getReference(propertyResolverBean, processorType, creationalContext);
 
         try {
             final Object sink = annotatedProcessorMethod.getJavaMember().invoke(processorInstance, source);

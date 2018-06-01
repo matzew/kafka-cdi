@@ -36,6 +36,7 @@ public class ServiceInjectionTest extends KafkaClusterTestBase {
 
         return AbstractTestBase.createFrameworkDeployment()
                 .addPackage(KafkaService.class.getPackage())
+                .addPackage(StreamProcessor.class.getPackage())
                 .addPackage(MockProvider.class.getPackage());
     }
 
