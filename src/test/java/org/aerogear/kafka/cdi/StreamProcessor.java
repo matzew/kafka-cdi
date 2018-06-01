@@ -20,18 +20,27 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
 public class StreamProcessor {
 
     Logger logger = LoggerFactory.getLogger(StreamProcessor.class);
 
     public StreamProcessor() {
-        System.out.println("");
+        logger.error("CTOR CALLED ........");
+    }
+
+    @PostConstruct
+    public void setMeUp() {
+        logger.error("POST CONSTRUCT ........");
     }
 
     @KafkaStream(input = "input_topic2", output = "output_topic")
     public KStream<String, Long> tableTransformer(final KStream<String, String> source) {
 
-        logger.trace("Initial setup");
+        logger.error("Initial setup");
 
         final KStream<String, Long> successCountsPerJob = source.filter((key, value) -> value.equals("Success"))
                 .groupByKey()
