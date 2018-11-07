@@ -31,7 +31,7 @@ public class StreamProcessor {
 
         final KStream<String, Long> successCountsPerJob = source.filter((key, value) -> value.equals("Success"))
                 .groupByKey()
-                .count("successMessagesStore").toStream();
+                .count().toStream();
 
         return successCountsPerJob;
     }
